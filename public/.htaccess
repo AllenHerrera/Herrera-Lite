@@ -1,11 +1,23 @@
+### Options ###
 Options -MultiViews
 Options -Indexes
 
-RewriteEngine On
+### Allow Override ###
+AllowOverride All
 
+### Turn on Url reWriting ###
+RewriteEngine On
 RewriteBase /public/
+
+### Determine if request does not match an existing file or directory
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
 
 RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
+### Dynamic Host Name ###
+RewriteCond %{HTTP_HOST} ^(?:www\.)?([a-z0-9-]+\.[a-z]+) [NC]
+
+### 404 Error Reroute ###
+ErrorDocument 404 http://localhost/public/system/package/error/404.html
